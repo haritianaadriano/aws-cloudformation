@@ -1,0 +1,1 @@
+$ aws cloudformation create-stack --stack-name mon-stack --template-body template.yml 
