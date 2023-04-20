@@ -1,1 +1,1 @@
-$ aws cloudformation create-stack --stack-name mon-stack --template-body template.yml 
+$ aws cloudformation create-stack --stack-name homework --template-body template.yml 
