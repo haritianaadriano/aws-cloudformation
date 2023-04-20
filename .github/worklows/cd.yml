@@ -1,0 +1,15 @@
+name: Homework
+
+concurrency: aws cloudformation homework
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        # ...deployment-specific steps
