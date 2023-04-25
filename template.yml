@@ -1,16 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+    DBAllocatedStorage:
+        Default: '1'
+        Description: The size of the database (Gb)
+        Type: Number
+        MinValue: '1'
+        MaxValue: '5'
+    DBClass:
+        Default: db.t3.micro
+        Description: Database instance class
+        Type: String
+        ConstraintDescription: must select a valid database instance type.
 Resources:
-  ## nom du resource
-  S3bucket:
-    Type: AWS::S3::Bucket
-    Properties: 
-      BucketName: STD21103 ## nom du du bucket
-  SSMbucketName:
-    type: AWS::SSM::Parameter
-    Properties:
-      name: /bucket-name
-      value: !Ref S3bucket
-  SSMbucketArn:
-    type: AWS::SSM::Parameter
-    properties:
-      name: /bucket-arn
-      value: !GetAtt S3bucket.Arn
+    Database:
+        Type: AWS::RDS::DBInstance
+        Properties:
+            DBname: postgresql
+            Engine: postgres
+            AllocatedStorage: !Ref DBAllocatedStorage
+            DBInstanceClass:
+                Ref: DBClass
