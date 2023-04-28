@@ -11,6 +11,8 @@ Parameters:
         Description: Database instance class
         Type: String
         ConstraintDescription: must select a valid database instance type.
+    Env:
+        type: String
 Resources:
     Database:
         Type: AWS::RDS::DBInstance
@@ -26,7 +28,7 @@ Resources:
     DatabaseSSM:
         Type: AWS::SSM::Parameter
         Properties:
-        Name: !Join [ '', [ /database/, /db/url ] ]
+        Name: !Join [ '', [ /database/, !Ref Env, /db/url ] ]
         Type: String
         Value:
             Fn::Join:
