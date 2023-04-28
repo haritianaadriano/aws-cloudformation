@@ -1,11 +1,11 @@
 AWSTemplateFormatVersion: 2010-09-09
 Parameters:
     DBAllocatedStorage:
-        Default: '1'
+        Default: '5'
         Description: The size of the database (Gb)
         Type: Number
-        MinValue: '1'
-        MaxValue: '5'
+        MinValue: '5'
+        MaxValue: '6144'
     DBClass:
         Default: db.t3.micro
         Description: Database instance class
@@ -20,3 +20,6 @@ Resources:
             AllocatedStorage: !Ref DBAllocatedStorage
             DBInstanceClass:
                 Ref: DBClass
+            MasterUsername: !Sub '{{resolve:ssm:/database/db/username}}'
+            MasterUserPassword: !Sub '{{resolve:ssm:/database/db/password}}'
+            PubliclyAccessible: false
