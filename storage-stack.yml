@@ -23,3 +23,25 @@ Resources:
             MasterUsername: !Sub '{{resolve:ssm:/database/db/username}}'
             MasterUserPassword: !Sub '{{resolve:ssm:/database/db/password}}'
             PubliclyAccessible: false
+    DatabaseSSM:
+        Type: AWS::SSM::Parameter
+        Properties:
+        Name: !Join [ '', [ /database/, /db/url ] ]
+        Type: String
+        Value:
+            Fn::Join:
+            - ''
+            - - jdbc:postgresql://
+                - Fn::GetAtt:
+                    - Database
+                    - Endpoint.Address
+                - ':'
+                - Fn::GetAtt:
+                    - Database
+                    - Endpoint.Port
+                - '/'
+                - !Ref DBName
+
+Outputs:
+  DatabaseSSM:
+    Value: !Ref DatabaseSSM
