@@ -28,21 +28,21 @@ Resources:
     DatabaseSSM:
         Type: AWS::SSM::Parameter
         Properties:
-        Name: !Join [ '', [ /database/, !Ref Env, /db/url ] ]
-        Type: String
-        Value:
-            Fn::Join:
-            - ''
-            - - jdbc:postgresql://
-                - Fn::GetAtt:
-                    - Database
-                    - Endpoint.Address
-                - ':'
-                - Fn::GetAtt:
-                    - Database
-                    - Endpoint.Port
-                - '/'
-                - !Ref DBName
+            Name: !Join [ '', [ /database/, !Ref Env, /db/url ] ]
+            Type: String
+            Value:
+                Fn::Join:
+                - ''
+                - - jdbc:postgresql://
+                    - Fn::GetAtt:
+                        - Database
+                        - Endpoint.Address
+                    - ':'
+                    - Fn::GetAtt:
+                        - Database
+                        - Endpoint.Port
+                    - '/'
+                    - postgresql
 
 Outputs:
   DatabaseSSM:
